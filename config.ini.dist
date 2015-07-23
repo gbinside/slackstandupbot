@@ -1,0 +1,18 @@
+[general]
+timeout=60
+token=#place your token here#
+report_channel=#something like Cxxxxxxxx# bot must be invited in this channel.
+[messages]
+date_format=%d/%m/%Y
+presentation: Standup
+
+farewell=Thanks :simple_smile:
+report_channel_start=Standup started
+report_channel_stop=Standup ended
+[questions]
+q1=What have you done this morning? (end with a period (.) on a single line)
+q2=What will you do thisafternoon? (end with a period (.) on a single line)
+q3=Are you blocked by something? (end with a period (.) on a single line)
+q4=Other? (end with a period (.) on a single line)
+[skip]
+u1=U082PS0H3
