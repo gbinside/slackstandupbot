@@ -17,8 +17,10 @@ def urlencode_utf8(params):
          for k, v in params))
 
 
-def dopost(action, **params):
-    params['token'] = token
+def dopost(action, _token=None, **params):
+    if _token is None:
+        _token = token
+    params['token'] = _token
     eparams = urlencode_utf8(params)
     return json.loads(urllib.urlopen('https://slack.com/api/' + action, eparams).read())
 
