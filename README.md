@@ -13,8 +13,8 @@ config.ini
 * copy the config.ini.dist to config.ini and edit it as you need.
 * to retrieve the channel code, go to the slack page of your team, look in the html at the attribute `data-channel-id` of the `a` tag of your desidered channel es: `data-channel-id="C082PN93M"`
 * same for the user code to skip, but the attribute is `data-member-id`
-* optionally you can retrieve the channels list by using `python list.py channels`
-* optionally you can retrieve the users list by using `python list.py users`
+* optionally you can retrieve the channels list by using `python list.py channels` (you only need to configure the bot token in the config.ini file to do this)
+* optionally you can retrieve the users list by using `python list.py users` (you only need to configure the bot token in the config.ini file to do this)
 * change the `reformat` function to your needs, the default is:
 
 ![example](https://raw.githubusercontent.com/gbinside/slackstandupbot/master/screenshot/001.png)
