@@ -10,7 +10,7 @@ You only need to touch the code if the `reformat` function doesn't format the ou
 config.ini
 -----------
 
-* copy the config.ini.dist to config.ini and edit it as you need.
+* copy the `config.ini.dist` to `config.ini` and edit it as you need.
 * to retrieve the channel code, go to the slack page of your team, look in the html at the attribute `data-channel-id` of the `a` tag of your desidered channel es: `data-channel-id="C082PN93M"`
 * same for the user code to skip, but the attribute is `data-member-id`
 * optionally you can retrieve the channels list by using `python list.py channels` (you only need to configure the bot token in the config.ini file to do this)
@@ -22,10 +22,10 @@ config.ini
 Run
 -----------
 
-* first create a config.ini like said before
+* first create a `config.ini` like said before
 * run `python slackstandupbot.py`
 
 TODO
 ----------
 
-* start the threads only N at a time, not all togheter; if you have a lot of member of your team, you can spawn too much threads.
+* -start the threads only N at a time, not all togheter; if you have a lot of member of your team, you can spawn too much threads.-

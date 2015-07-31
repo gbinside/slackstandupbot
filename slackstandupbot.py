@@ -93,30 +93,30 @@ def read_config(f):
     config = ConfigParser.ConfigParser()
     config.readfp(open(f))
     token = config.get('general', 'token')
+    threads = config.get('general', 'threads')
     report_channel = config.get('general', 'report_channel')
     TIMEOUT = int(config.get('general', 'timeout'))
-    date_format = config.get('messages', 'date_format')
+    datefmt = config.get('messages', 'date_format')
     intro = config.get('messages', 'presentation')
     farewell = config.get('messages', 'farewell')
     report_channel_start = config.get('messages', 'report_channel_start')
     report_channel_stop = config.get('messages', 'report_channel_stop')
     questions = [x[1] for x in config.items('questions')]
     skip = [x[1] for x in config.items('skip')]
-    return date_format, farewell, intro, questions, report_channel, report_channel_start, report_channel_stop, skip
+    return datefmt, farewell, intro, questions, report_channel, report_channel_start, report_channel_stop, skip, threads
 
 
 def main(argv):
     global token, TIMEOUT, standup
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-    date_format, farewell, intro, questions, rep_chan, rep_chan_start, rep_chan_stop, skip = read_config('config.ini')
+    dt_fmt, farewell, intro, questions, rep_chan, rep_chan_start, rep_chan_stop, skip, threads_limit = read_config(
+        'config.ini')
 
-    today = '[%s]' % strftime(date_format)
+    today = '[%s]' % strftime(dt_fmt)
 
     intro += today
-    # farewell = 'Grazie :simple_smile:'
     rep_chan_start += today
-    # rep_chan_stop = 'Standup finito'
 
     say(rep_chan, rep_chan_start)
 
@@ -126,9 +126,21 @@ def main(argv):
         if not member['is_bot'] and not member['deleted'] and member['id'] not in skip:
             t = threading.Thread(target=worker, args=(member, questions, intro, farewell))
             threads.append(t)
-            t.start()
 
-    [t.join() for t in threads]
+    # start only N thread at a time
+    running = []
+    ths = list(threads)  # copy
+    done = False
+    while not done:
+        while len(running) < threads_limit and len(ths):
+            # take one thread from threads and start it
+            running.append(ths.pop(0))
+            running[-1].start()
+        running = [t for t in running if t.is_alive()]
+        sleep(0.5)
+        done = len(running) < 1
+
+    [t.join() for t in threads]  # useless? used for double security
 
     say(rep_chan, '```\n' + reformat(standup) + '\n```')
     say(rep_chan, rep_chan_stop)
