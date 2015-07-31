@@ -28,4 +28,4 @@ Run
 TODO
 ----------
 
-* -start the threads only N at a time, not all togheter; if you have a lot of member of your team, you can spawn too much threads.-
+* ~~start the threads only N at a time, not all togheter; if you have a lot of member of your team, you can spawn too much threads.~~
